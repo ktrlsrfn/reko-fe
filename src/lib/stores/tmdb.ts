@@ -1,0 +1,1 @@
+export const POSTER_URL = (id: string) => `https://image.tmdb.org/t/p/original${id}`;
