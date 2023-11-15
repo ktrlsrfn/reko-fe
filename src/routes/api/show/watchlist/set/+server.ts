@@ -1,4 +1,4 @@
-import { json } from '@sveltejs/kit';
+import { json, redirect } from '@sveltejs/kit';
 
 export const POST = async ({ request, locals: { supabase, getSession } }) => {
     const session = await getSession();
@@ -9,7 +9,7 @@ export const POST = async ({ request, locals: { supabase, getSession } }) => {
             code: 400,
             message: 'Invalid input'
         }, { status: 400 });
-    }  
+    }
 
     if (!session) {
         return json({

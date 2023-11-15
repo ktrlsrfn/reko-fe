@@ -17,7 +17,7 @@ export const POST = (async ({ request, locals: { supabase }}) => {
                 id,
                 title,
                 content,
-                author ( name, avatar ),
+                author ( id, name, avatar ),
                 tag ( name )
             `)
             .eq('id', body.id);
@@ -30,6 +30,7 @@ export const POST = (async ({ request, locals: { supabase }}) => {
             id: d.id,
             title: d.title,
             content: d.content,
+            author_id: d.author.id,
             author_name: d.author.name,
             author_avatar: d.author.avatar,
             tags: d.tag,

@@ -3,6 +3,8 @@
   import BookmarkIcon from '~icons/ic/baseline-bookmark';
   import StarIcon from '~icons/material-symbols/star-rounded';
   import PlayIcon from '~icons/material-symbols/play-arrow-rounded';
+	import { redirect } from '@sveltejs/kit';
+	import { goto } from '$app/navigation';
 
   export let type = 'movie';
   export let show: any = {
@@ -17,8 +19,6 @@
   $: bookmarked = !!watchlist.find((x: any) => x.id === show.id && x.type === type);
 
   async function handleBookmark() {
-    bookmarked = !bookmarked
-
     const request = await fetch('/api/show/watchlist/set', {
       method: 'POST',
       body: JSON.stringify({
@@ -28,9 +28,13 @@
       })
     });
 
-    if (request.status !== 200) {
-      bookmarked = !bookmarked;
-      return;
+    switch(request.status) {
+      case 200:
+        bookmarked = !bookmarked;
+        break;
+
+      case 401:
+        goto('/login');
     }
   }
 </script>
@@ -50,7 +54,7 @@
           <span>{show.year}</span>
           <div class="flex gap-1">
             <StarIcon class="mt-[2px] text-yellow-500"/>
-            <span>{show.rating}</span>
+            <span>{show.rating.toFixed(1)}</span>
           </div>
         </div>
       </div>

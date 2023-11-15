@@ -49,12 +49,12 @@
 
             <a href='/api/logout' class="flex items-center w-full gap-4 px-4 py-2 rounded-md">
                 <PhSignIn />
-                <span class="hover:no-underline hover:text">Sign out</span>
+                <span class="hover:no-underline hover:text">Log out</span>
             </a>
         {:else}
             <a href='/login' class="flex items-center w-full gap-4 px-4 py-2 rounded-md">
                 <PhSignIn />
-                <span class="hover:no-underline hover:text">Sign in</span>
+                <span class="hover:no-underline hover:text">Log in</span>
             </a>
         {/if}
 
