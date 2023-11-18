@@ -7,7 +7,7 @@
     $: shows = data.shows;
 </script>
 
-<div class="flex p-4 justify-start gap-2 flex-wrap">
+<div class="flex w-full p-4 justify-start gap-2 flex-wrap">
     {#each shows as show}
         <ShowItem {show} type={show.type} {watchlist} />
     {/each}

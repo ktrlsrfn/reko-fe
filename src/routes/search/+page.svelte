@@ -39,8 +39,10 @@
         </div>
     </div>
     <div class="flex flex-wrap gap-2 justify-start">
-        {#each shows as show}
-            <ShowItem {show} type={show.type} {watchlist} />
-        {/each}
+        {#if !loading}
+            {#each shows as show}
+                <ShowItem {show} type={show.type} {watchlist} />
+            {/each}
+        {/if}
     </div>
 </div>
