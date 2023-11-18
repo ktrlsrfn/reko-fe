@@ -18,7 +18,7 @@ export const GET = (async ({ url }) => {
 
   let total_pages = 1;
 
-  for (let page = 1; page <= total_pages; page++) {
+  for (let page = 1; page <= total_pages && page <= 3; page++) {
       const response = await axios.get(
         `https://api.themoviedb.org/3/search/multi`,
         {
@@ -39,9 +39,6 @@ export const GET = (async ({ url }) => {
   }
 
   const mapping = data.reduce((total, d) => {
-    if (!total)
-      total = [];
-
     const type = d.media_type;
     if (type === 'movie') {
         // if (!d.title || !d.vote_average || !d.release_date || !d.backdrop_path || !d.overview) {
@@ -72,6 +69,8 @@ export const GET = (async ({ url }) => {
           type
         }];
     }
+
+    return total;
   }, []);
 
   return json({
