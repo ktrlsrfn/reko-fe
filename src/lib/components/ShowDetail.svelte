@@ -17,6 +17,15 @@
       </div>
     </div>
     <p class="text-xl">{show.overview}</p>
+
+    <div class="flex flex-col py-6 gap-2">
+      <h2 class="text-2xl font-bold">Watch On: </h2>
+      <div class="flex gap-4">
+        {#each show.providers as provider}
+          <img title="{provider.name}" class="w-12 h-12 rounded-xl" src="{provider.logo}" alt="{provider.name}">
+        {/each}
+      </div>
+    </div>
   </div>
   {#if show.video}
     <div class="w-full p-12">

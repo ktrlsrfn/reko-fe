@@ -51,6 +51,44 @@ export const GET = (async ({ url }) => {
   const videoList = videoRes.data;
   const video = videoList.results.find((video: any) => video.site === 'YouTube' && video.official === true && video.type === 'Trailer');
   const videoLink = `https://www.youtube.com/embed/${video.key}`;
+  
+  const providerReq = await axios.get(
+    `https://api.themoviedb.org/3/movie/${body.id}/watch/providers`,
+    {
+      headers: {
+        'Authorization': 'Bearer ' + API_KEY
+      }
+    }
+  );
+
+  let providers: any = [];
+  if (providerReq.status == 200) {
+    const data = providerReq.data;
+    if (data.results.hasOwnProperty('ID')) {
+      let prov: any = {};
+      if (data.results.ID.hasOwnProperty('buy')) {
+        data.results.ID.buy.forEach((p: any) => {
+          prov[p.provider_id] = {
+            name: p.provider_name,
+            logo: POSTER_URL(p.logo_path)
+          };
+        });
+      }
+
+      if (data.results.ID.hasOwnProperty('rent')) {
+        data.results.ID.rent.forEach((p: any) => {
+          prov[p.provider_id] = {
+            name: p.provider_name,
+            logo: POSTER_URL(p.logo_path)
+          };
+        });
+      }
+      
+      Object.values(prov).forEach((p: any) => {
+        providers.push(p);
+      });
+    }
+  }
 
   const content = {
     id: body.id,
@@ -59,7 +97,8 @@ export const GET = (async ({ url }) => {
     year: new Date(body.release_date).getFullYear(),
     backdrop: POSTER_URL(body.backdrop_path),
     overview: body.overview,
-    video: videoLink
+    video: videoLink,
+    providers: providers
   };
 
   return json({
