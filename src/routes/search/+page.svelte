@@ -31,14 +31,15 @@
     }
 </script>
 
-<div class="flex flex-col w-full p-4 gap-4">
-    <div class="flex w-full h-12 gap-2 items-center">
-        <input bind:value={search} on:change={searchShows} type="text" class="input w-96 px-4 h-full" placeholder="Search">
+<div class="flex flex-col w-full p-4 gap-4 items-center">
+    <h1 class="text-6xl font-extrabold py-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-blue-600">Look for shows</h1>
+    <div class="flex w-full h-12 gap-2 justify-center items-center px-16">
+        <input bind:value={search} on:change={searchShows} type="text" class="input w-full h-full px-4 border-solid border-4 text-lg" placeholder="Search">
         <div class="{ loading ? 'flex' : 'hidden' } items-center h-full">
             <ConicGradient width="w-8" stops={conicStops} spin></ConicGradient>
         </div>
     </div>
-    <div class="flex flex-wrap gap-2 justify-start">
+    <div class="flex flex-wrap gap-2 justify-around">
         {#if !loading}
             {#each shows as show}
                 <ShowItem {show} type={show.type} {watchlist} />
