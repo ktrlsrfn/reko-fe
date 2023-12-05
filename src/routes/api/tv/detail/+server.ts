@@ -49,8 +49,49 @@ export const GET = (async ({ url }) => {
   }
 
   const videoList = videoRes.data;
-  const video = videoList.results.find((video: any) => video.site === 'YouTube' && video.official === true && video.type === 'Trailer');
-  const videoLink = `https://www.youtube.com/embed/${video.key}`;
+  const video = videoList.results.find((video: any) => video.site === 'YouTube' && video.official === true && (video.type === 'Trailer' || video.type === 'Clip'));
+  let videoLink = ''
+  if (video) {;
+    videoLink = `https://www.youtube.com/embed/${video.key}`;
+  }
+
+  const providerReq = await axios.get(
+    ` https://api.themoviedb.org/3/tv/${body.id}/watch/providers`,
+    {
+      headers: {
+        'Authorization': 'Bearer ' + API_KEY
+      }
+    }
+  );
+
+  const providers: any = [];
+  if (providerReq.status == 200) {
+    const data = providerReq.data;
+    if (Object.prototype.hasOwnProperty.call(data.results, 'ID')) {
+      const prov: any = {};
+      if (Object.prototype.hasOwnProperty.call(data.results.ID, 'ads')) {
+        data.results.ID.ads.forEach((p: any) => {
+          prov[p.provider_id] = {
+            name: p.provider_name,
+            logo: POSTER_URL(p.logo_path)
+          };
+        });
+      }
+
+      if (Object.prototype.hasOwnProperty.call(data.results.ID, 'flatrate')) {
+        data.results.ID.flatrate.forEach((p: any) => {
+          prov[p.provider_id] = {
+            name: p.provider_name,
+            logo: POSTER_URL(p.logo_path)
+          };
+        });
+      }
+
+      Object.values(prov).forEach((p: any) => {
+        providers.push(p);
+      });
+    }
+  }
 
   const content = {
     id: body.id,
@@ -59,7 +100,8 @@ export const GET = (async ({ url }) => {
     year: new Date(body.first_air_date).getFullYear(),
     backdrop: POSTER_URL(body.backdrop_path),
     overview: body.overview,
-    video: videoLink
+    video: videoLink,
+    providers
   };
 
   return json({

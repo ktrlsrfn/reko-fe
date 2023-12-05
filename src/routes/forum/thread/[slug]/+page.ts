@@ -19,14 +19,11 @@ export const load = async ({ fetch, params, parent }) => {
         const content = await response.json();
         const data = content.data;
 
-        // console.log(data);
-
         return {
             thread: data,
             session
         };
     } catch (err) {
-        // console.log(err);
         throw redirect(302, '/forum');
     }
 };

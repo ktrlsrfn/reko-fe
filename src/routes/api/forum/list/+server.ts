@@ -29,7 +29,6 @@ export const GET = (async ({ locals: { supabase } }) => {
             data: mapped
         });
     } catch (err) {
-        console.error(err);
         return json({
             code: 400,
             message: 'An error occurred'

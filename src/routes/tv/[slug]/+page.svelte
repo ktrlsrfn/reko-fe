@@ -6,6 +6,6 @@
   const show = data.show.content;
 </script>
 
-<div class="flex">
+<div class="flex w-full">
   <ShowDetail {show} />
 </div>

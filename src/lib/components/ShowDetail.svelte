@@ -5,7 +5,7 @@
   export let show: any;
 </script>
 
-<div class="flex-col font-sans font-bold text-white relative flex h-full overflow-auto px-16 py-28" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{show.backdrop}');background-size: cover; background-position: center">
+<div class="flex-col font-sans font-bold text-white relative flex h-full w-full overflow-auto px-16 py-28" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{show.backdrop}');background-size: cover; background-position: center">
   <div class="flex flex-col items-start">
     <h1 class="text-7xl my-4">{show.title}</h1>
     <div class="relative flex text-3xl h-full">

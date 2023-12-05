@@ -42,7 +42,6 @@ export const POST = (async ({ request, locals: { supabase }}) => {
             data: mapping
         });
     } catch (err) {
-        // console.log(err);
         return json({
             code: 400,
             message: 'An error occurred'

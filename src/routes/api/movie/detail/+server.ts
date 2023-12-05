@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { env } from "$env/dynamic/private";
 import { json, type RequestHandler } from "@sveltejs/kit";
 import axios from "axios";
@@ -51,7 +52,7 @@ export const GET = (async ({ url }) => {
   const videoList = videoRes.data;
   const video = videoList.results.find((video: any) => video.site === 'YouTube' && video.official === true && video.type === 'Trailer');
   const videoLink = `https://www.youtube.com/embed/${video.key}`;
-  
+
   const providerReq = await axios.get(
     `https://api.themoviedb.org/3/movie/${body.id}/watch/providers`,
     {
@@ -61,12 +62,12 @@ export const GET = (async ({ url }) => {
     }
   );
 
-  let providers: any = [];
+  const providers: any = [];
   if (providerReq.status == 200) {
     const data = providerReq.data;
-    if (data.results.hasOwnProperty('ID')) {
-      let prov: any = {};
-      if (data.results.ID.hasOwnProperty('buy')) {
+    if (Object.prototype.hasOwnProperty.call(data.results, 'ID')) {
+      const prov: any = {};
+      if (Object.prototype.hasOwnProperty.call(data.results.ID, 'buy')) {
         data.results.ID.buy.forEach((p: any) => {
           prov[p.provider_id] = {
             name: p.provider_name,
@@ -75,7 +76,7 @@ export const GET = (async ({ url }) => {
         });
       }
 
-      if (data.results.ID.hasOwnProperty('rent')) {
+      if (Object.prototype.hasOwnProperty.call(data.results.ID, 'rent')) {
         data.results.ID.rent.forEach((p: any) => {
           prov[p.provider_id] = {
             name: p.provider_name,
@@ -83,7 +84,7 @@ export const GET = (async ({ url }) => {
           };
         });
       }
-      
+
       Object.values(prov).forEach((p: any) => {
         providers.push(p);
       });
@@ -98,7 +99,7 @@ export const GET = (async ({ url }) => {
     backdrop: POSTER_URL(body.backdrop_path),
     overview: body.overview,
     video: videoLink,
-    providers: providers
+    providers
   };
 
   return json({
