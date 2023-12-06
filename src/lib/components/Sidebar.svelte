@@ -56,6 +56,10 @@
                 <PhSignIn />
                 <span class="hover:no-underline hover:text">Log in</span>
             </a>
+            <a href='/register' class="flex items-center w-full gap-4 px-4 py-2 rounded-md">
+                <PhSignIn />
+                <span class="hover:no-underline hover:text">Register</span>
+            </a>
         {/if}
 
         <div class="w-full h-[1px] bg-white"></div>

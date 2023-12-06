@@ -21,6 +21,7 @@ export const POST = async ({ request, locals: { supabase, getSession } }) => {
     const userId = session.user.id;
 
     try {
+        console.log(body);
         if (body.action === 'add') {
             const { error } = await supabase
                 .from('watchlist')
@@ -29,8 +30,15 @@ export const POST = async ({ request, locals: { supabase, getSession } }) => {
                     id: body.id,
                     type: body.type
                 });
-    
+
+            console.log(error)
+
             if (error) throw error;
+
+            return json({
+                code: 200,
+                message: 'Successfully added to watchlist'
+            });
         }
 
         if (body.action === 'remove') {
@@ -42,12 +50,17 @@ export const POST = async ({ request, locals: { supabase, getSession } }) => {
                 .eq('type', body.type);
 
             if (error) throw error;
+
+            return json({
+                code: 200,
+                message: 'Successfully removed from watchlist'
+            });
         }
 
         return json({
-            code: 200,
-            message: 'Successfully added to watchlist'
-        });
+            code: 400,
+            message: 'An error occurred'
+        }, { status: 400 });
     } catch (err) {
         return json({
             code: 400,

@@ -24,7 +24,7 @@
       body: JSON.stringify({
         id: show.id,
         type,
-        action: bookmarked ? 'add' : 'remove'
+        action: bookmarked ? 'remove' : 'add'
       })
     });
 
