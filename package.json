@@ -37,7 +37,7 @@
 	"dependencies": {
 		"@supabase/auth-helpers-sveltekit": "^0.10.0",
 		"@supabase/supabase-js": "^2.24.0",
-		"@tinymce/tinymce-svelte": "^1.0.1",
+		"@tinymce/tinymce-svelte": "^3.0.0",
 		"@tiptap/core": "^2.0.3",
 		"@tiptap/extension-bubble-menu": "^2.0.3",
 		"@tiptap/pm": "^2.0.3",
