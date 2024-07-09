@@ -59,7 +59,8 @@
         <input id="title" bind:value={title} class="input h-10 px-4" type="text" placeholder="Title">
 
         <!-- <Editor bind:value={content} licenseKey="gpl" /> -->
-	<textarea bind:value={content}></textarea>
+	<!-- <textarea bind:value={content}></textarea> -->
+	<Editor bind:value={content} apiKey="ypldsrma1vdwplu7kf6nda7v3272coxhedmqtg1jyxaync8z" />
 
         <InputChip bind:value={tags} name="chips" placeholder="Enter your tags here" />
 
