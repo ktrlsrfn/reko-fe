@@ -58,7 +58,7 @@
     <form method="POST" on:submit|preventDefault={handleSubmit} class="flex flex-col w-full bg-slate-900 rounded-xl p-6 gap-6">
         <input id="title" bind:value={title} class="input h-10 px-4" type="text" placeholder="Title">
 
-        <Editor bind:value={content} apiKey="ypldsrma1vdwplu7kf6nda7v3272coxhedmqtg1jyxaync8z" />
+        <Editor bind:value={content} licenseKey="gpl" />
 
         <InputChip bind:value={tags} name="chips" placeholder="Enter your tags here" />
 
